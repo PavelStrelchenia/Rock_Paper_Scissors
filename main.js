@@ -1,5 +1,12 @@
 "use strict";
 
+const btnRock = document.querySelector(".rock");
+const btnPaper = document.querySelector(".paper");
+const btnScissors = document.querySelector(".scissors");
+
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
   let randomNum = Math.random();
   if (randomNum < 0.3) {
@@ -11,20 +18,8 @@ function getComputerChoice() {
   }
 }
 
-function getHumanChoice() {
-  let choiceFromPrompt = prompt(
-    "Enter your choice (rock, paper, scissors): ",
-  ).toLowerCase();
-  return choiceFromPrompt;
-}
-
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
-    humanScore++;
-    computerScore++;
     console.log("Its a tie!");
   } else if (
     (humanChoice === "rock" && computerChoice === "scissors") ||
@@ -37,26 +32,21 @@ function playRound(humanChoice, computerChoice) {
     computerScore++;
     console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
   }
+
+  console.log(`Score - You: ${humanScore} | Computer: ${computerScore}`);
 }
 
-function playGame() {
-  humanScore = 0;
-  computerScore = 0;
+btnRock.addEventListener("click", () => {
+  const computerSelectoin = getComputerChoice();
+  playRound("rock", computerSelectoin);
+});
 
-  for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    console.log(`${humanScore} : ${computerScore}`);
-  }
+btnPaper.addEventListener("click", () => {
+  const computerSelectoin = getComputerChoice();
+  playRound("paper", computerSelectoin);
+});
 
-  if (humanScore > computerScore) {
-    console.log("You won!");
-  } else if (humanScore < computerScore) {
-    console.log("You lose!");
-  } else {
-    console.log("Tie!");
-  }
-}
-
-playGame();
+btnScissors.addEventListener("click", () => {
+  const computerSelectoin = getComputerChoice();
+  playRound("scissors", computerSelectoin);
+});
